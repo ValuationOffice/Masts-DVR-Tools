@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contract\IPDFManager.cs" />
+    <Compile Include="Implementation\PDFManager.cs" />
     <Compile Include="ServiceConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,6 +65,11 @@
       <Project>{746a5227-8966-4f1e-a85a-487d917cc18c}</Project>
       <Name>masts_dvr_tool.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\masts_dvr_tool.Models\masts_dvr_tool.Models.csproj">
+      <Project>{33FD1FA8-3568-42E8-A4C4-8247E5120C98}</Project>
+      <Name>masts_dvr_tool.Models</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

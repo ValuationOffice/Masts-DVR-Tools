@@ -63,13 +63,12 @@
   <ItemGroup>
     <Compile Include="DataAccess\PDFRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\PDFManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\masts_dvr.tool.Stubs\masts_dvr.tool.Stubs.csproj">
       <Project>{da369254-56fc-4639-ae7a-946ed0c983f5}</Project>
