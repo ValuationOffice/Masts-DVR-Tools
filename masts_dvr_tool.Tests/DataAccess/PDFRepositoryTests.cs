@@ -53,26 +53,9 @@ namespace masts_dvr_tool.Tests.DataAccess
         [TestMethod]
         public void GetPDFFields_ShouldReturn_FieldsFromDocument()
         {
-            List <PDFField> pdfActualItems = pdfRepository.GetPDFFields(mockPDFFilePath, PREFIX).ToList();
+            List<PDFField> pdfActualItems = pdfRepository.GetPDFFields(mockPDFFilePath, PREFIX).ToList();
             Assert.AreEqual(pdfExpectedItems.Count(), pdfActualItems.Count());
-
-            bool[] isTrue = new bool[3];
-
-            for(int i =0; i<pdfExpectedItems.Count();i++)
-            {
-                foreach (var item in pdfActualItems)
-                {
-                    if (item.Name == pdfExpectedItems.ToList()[0].Name)
-                        isTrue[i] = true;
-                }
-            }
-
-            foreach(var value in isTrue)
-            {
-                if (value != true)
-                    Assert.Fail();
-            }
-            
+            Assert.AreEqual(pdfExpectedItems.Count(), pdfExpectedItems.Select(x => x.Name).Intersect(pdfActualItems.Select(x=>x.Name)).Count());
         }
 
     }
