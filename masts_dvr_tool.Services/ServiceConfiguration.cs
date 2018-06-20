@@ -1,4 +1,6 @@
-﻿using Ninject;
+﻿using masts_dvr_tool.DataAccess.Contracts;
+using masts_dvr_tool.DataAccess.Repository;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,7 @@ namespace masts_dvr_tool.Services
         public static void ConfigureContainer()
         {
             //Bindings here
-
+            Container.Bind<IPDFRepository>().To<PDFRepository>().InSingletonScope();
         }
     }
 }

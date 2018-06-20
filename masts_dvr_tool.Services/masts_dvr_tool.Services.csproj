@@ -58,5 +58,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\masts_dvr_tool.DataAccess\masts_dvr_tool.DataAccess.csproj">
+      <Project>{746a5227-8966-4f1e-a85a-487d917cc18c}</Project>
+      <Name>masts_dvr_tool.DataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
