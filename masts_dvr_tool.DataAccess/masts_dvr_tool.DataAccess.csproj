@@ -94,6 +94,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\masts_dvr_tool.DTO\masts_dvr_tool.DTO.csproj">
+      <Project>{CC8D098A-1EFE-4FFE-81AF-DB32174B2CCF}</Project>
+      <Name>masts_dvr_tool.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\masts_dvr_tool.Models\masts_dvr_tool.Models.csproj">
       <Project>{33FD1FA8-3568-42E8-A4C4-8247E5120C98}</Project>
       <Name>masts_dvr_tool.Models</Name>

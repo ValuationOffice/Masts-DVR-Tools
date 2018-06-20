@@ -82,6 +82,10 @@
       <Project>{746A5227-8966-4F1E-A85A-487D917CC18C}</Project>
       <Name>masts_dvr_tool.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\masts_dvr_tool.DTO\masts_dvr_tool.DTO.csproj">
+      <Project>{CC8D098A-1EFE-4FFE-81AF-DB32174B2CCF}</Project>
+      <Name>masts_dvr_tool.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\masts_dvr_tool.Models\masts_dvr_tool.Models.csproj">
       <Project>{33fd1fa8-3568-42e8-a4c4-8247e5120c98}</Project>
       <Name>masts_dvr_tool.Models</Name>
