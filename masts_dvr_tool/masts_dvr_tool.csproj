@@ -40,6 +40,9 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.4.0.1044, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.2.4.0.1044\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -99,6 +102,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\masts_dvr_tool.DataAccess\masts_dvr_tool.DataAccess.csproj">
+      <Project>{746a5227-8966-4f1e-a85a-487d917cc18c}</Project>
+      <Name>masts_dvr_tool.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\masts_dvr_tool.Models\masts_dvr_tool.Models.csproj">
+      <Project>{33fd1fa8-3568-42e8-a4c4-8247e5120c98}</Project>
+      <Name>masts_dvr_tool.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\masts_dvr_tool.Services\masts_dvr_tool.Services.csproj">
+      <Project>{8f7a7b14-ea56-45e4-aa72-0caa7018559e}</Project>
+      <Name>masts_dvr_tool.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\masts_dvr_tool.ViewModels\masts_dvr_tool.ViewModels.csproj">
+      <Project>{c612cb9f-9069-43fa-8308-12e262d2a950}</Project>
+      <Name>masts_dvr_tool.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
