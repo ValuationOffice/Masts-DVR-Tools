@@ -67,13 +67,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="StubForms\mockForm.pdf" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\masts_dvr.tool.Stubs\masts_dvr.tool.Stubs.csproj">
-      <Project>{da369254-56fc-4639-ae7a-946ed0c983f5}</Project>
-      <Name>masts_dvr.tool.Stubs</Name>
-    </ProjectReference>
     <ProjectReference Include="..\masts_dvr_tool.Commands\masts_dvr_tool.Commands.csproj">
       <Project>{90c6fdba-8541-49a9-a233-79addee1232f}</Project>
       <Name>masts_dvr_tool.Commands</Name>

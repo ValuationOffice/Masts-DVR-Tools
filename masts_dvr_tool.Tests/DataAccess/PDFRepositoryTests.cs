@@ -41,11 +41,7 @@ namespace masts_dvr_tool.Tests.DataAccess
 
             };
 
-            mockPDFFilePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-
-            mockPDFFilePath = Path.GetFullPath(Path.Combine(mockPDFFilePath, @"..\"));
-
-            mockPDFFilePath += @"masts_dvr.tool.Stubs\StubForms\mockForm.pdf";
+            mockPDFFilePath = $@"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName}/StubForms/mockForm.pdf";
         }
 
         [TestMethod]

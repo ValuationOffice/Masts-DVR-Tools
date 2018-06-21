@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "masts_dvr_tool.DataAccess",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "masts_dvr_tool.Commands", "masts_dvr_tool.Commands\masts_dvr_tool.Commands.csproj", "{90C6FDBA-8541-49A9-A233-79ADDEE1232F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "masts_dvr.tool.Stubs", "masts_dvr.tool.Stubs\masts_dvr.tool.Stubs.csproj", "{DA369254-56FC-4639-AE7A-946ED0C983F5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{90C6FDBA-8541-49A9-A233-79ADDEE1232F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90C6FDBA-8541-49A9-A233-79ADDEE1232F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90C6FDBA-8541-49A9-A233-79ADDEE1232F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA369254-56FC-4639-AE7A-946ED0C983F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA369254-56FC-4639-AE7A-946ED0C983F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA369254-56FC-4639-AE7A-946ED0C983F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA369254-56FC-4639-AE7A-946ED0C983F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
