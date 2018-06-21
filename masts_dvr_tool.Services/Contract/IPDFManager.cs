@@ -1,4 +1,4 @@
-﻿using masts_dvr_tool.Models.DTO;
+﻿using masts_dvr_tool.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

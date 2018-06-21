@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using masts_dvr_tool.DataAccess.Contracts;
-using masts_dvr_tool.Models.DTO;
 using masts_dvr_tool.Services.Implementation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Linq;
+using masts_dvr_tool.Models;
 
 namespace masts_dvr_tool.Tests.Services
 {

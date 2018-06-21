@@ -1,9 +1,5 @@
-﻿using masts_dvr_tool.Models.DTO;
-using System;
+﻿using masts_dvr_tool.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace masts_dvr_tool.DataAccess.Contracts
 {
