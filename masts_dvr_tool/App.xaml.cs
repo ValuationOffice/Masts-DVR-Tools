@@ -1,6 +1,8 @@
 ﻿using masts_dvr_tool.DataAccess.Contracts;
 using masts_dvr_tool.DataAccess.Repository;
+using masts_dvr_tool.Services.Contract;
 using masts_dvr_tool.Services.Implementation;
+using masts_dvr_tool.ViewModels;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -31,12 +33,15 @@ namespace masts_dvr_tool
         {
             //Bindings here
             Container.Bind<IPDFRepository>().To<PDFRepository>().InSingletonScope();
-            Container.Bind<PDFManager>().To<PDFManager>().InSingletonScope();
+            Container.Bind<IPDFManager>().To<PDFManager>().InSingletonScope();
         }
 
         private void ComposeObjects()
         {
             //View binding here
+            Current.MainWindow = this.Container.Get<MainWindow>();
+            Current.MainWindow.DataContext = this.Container.Get<MainWindowViewModel>();
+            Current.MainWindow.Show();
 
         }
 
