@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Linq;
 using masts_dvr_tool.Models;
+using masts_dvr_tool.Services.Contract;
 
 namespace masts_dvr_tool.Tests.Services
 {
@@ -13,7 +14,7 @@ namespace masts_dvr_tool.Tests.Services
     public class PDFManagerTests
     {
         private IEnumerable<PDFField> expectedItems;
-        private PDFManager pdfManager;
+        private IPDFManager pdfManager;
 
         [TestInitialize]
         public void TestSetup()

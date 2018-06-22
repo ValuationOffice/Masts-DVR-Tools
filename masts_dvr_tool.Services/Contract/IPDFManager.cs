@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace masts_dvr_tool.Services.Contract
 {
-    interface IPDFManager
+    public interface IPDFManager
     {
         Task<IEnumerable<PDFField>> GetPDFields (string filepath, string prefix);
     }
