@@ -6,6 +6,7 @@ using masts_dvr_tool.Models;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using DVRTools.Services;
 
 namespace masts_dvr_tool.Tests.ViewModels
 {
@@ -42,7 +43,9 @@ namespace masts_dvr_tool.Tests.ViewModels
 
             mockPDFManager.Setup(x => x.GetPDFields(String.Empty, String.Empty)).ReturnsAsync(getPDFFieldsResponse);
 
-            mainWindowViewModel = new MainWindowViewModel(mockPDFManager.Object);
+            FileNameManager fileNameManager = new FileNameManager();
+
+            mainWindowViewModel = new MainWindowViewModel(mockPDFManager.Object, new IOManager(fileNameManager), fileNameManager);
             mainWindowViewModel.Prefix = "";
             mainWindowViewModel.TemplatePath = "";
         }
@@ -71,6 +74,28 @@ namespace masts_dvr_tool.Tests.ViewModels
             Assert.AreEqual(false, mainWindowViewModel.GetPDFEnabled);
 
         }
-        
+
+        [TestMethod]
+        public void UpdatePDFButton_ShouldBeDisabled_WhenNoValuesWithinPDFField()
+        {
+            Assert.AreEqual(false, mainWindowViewModel.UpdatePDFEnabled);
+            mainWindowViewModel.Prefix = "Foo";
+            mainWindowViewModel.TemplatePath = "Foo";
+            Assert.AreEqual(false, mainWindowViewModel.UpdatePDFEnabled);
+            mainWindowViewModel.OutputPath = "asdasd";
+            Assert.AreEqual(false, mainWindowViewModel.UpdatePDFEnabled);
+            mainWindowViewModel.PDFFields = new List<PDFField>();
+            Assert.AreEqual(false, mainWindowViewModel.UpdatePDFEnabled);
+            mainWindowViewModel.PDFFields = new List<PDFField>()
+            {
+                new PDFField()
+                {
+                    Name="Foo",
+                    Value ="Foo"
+                }
+            };
+            Assert.AreEqual(true, mainWindowViewModel.UpdatePDFEnabled);
+        }
+
     }
 }

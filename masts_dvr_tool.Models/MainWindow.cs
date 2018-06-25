@@ -7,6 +7,8 @@ namespace masts_dvr_tool.Models
         public List<PDFField> PDFFields { get; set; }
 
         public string TemplatePath {get; set;}
+
+        public string OutputPath { get; set; }
         
         public string Prefix { get; set; }
 

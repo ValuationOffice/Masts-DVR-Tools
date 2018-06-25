@@ -1,4 +1,5 @@
-﻿using masts_dvr_tool.DataAccess.Contracts;
+﻿using DVRTools.Services;
+using masts_dvr_tool.DataAccess.Contracts;
 using masts_dvr_tool.DataAccess.Repository;
 using masts_dvr_tool.Services.Contract;
 using masts_dvr_tool.Services.Implementation;
@@ -34,6 +35,8 @@ namespace masts_dvr_tool
             //Bindings here
             Container.Bind<IPDFRepository>().To<PDFRepository>().InSingletonScope();
             Container.Bind<IPDFManager>().To<PDFManager>().InSingletonScope();
+            Container.Bind<IIOManager>().To<IOManager>().InSingletonScope();
+            Container.Bind<IFileNameManager>().To<FileNameManager>().InSingletonScope();
         }
 
         private void ComposeObjects()
