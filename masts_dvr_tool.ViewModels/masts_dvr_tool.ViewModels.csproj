@@ -42,9 +42,11 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Helpers\BindableBase.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +54,20 @@
     <Analyzer Include="..\packages\PropertyChangedAnalyzers.2.5.12.0\analyzers\dotnet\cs\Gu.Roslyn.CodeFixExtensions.dll" />
     <Analyzer Include="..\packages\PropertyChangedAnalyzers.2.5.12.0\analyzers\dotnet\cs\PropertyChangedAnalyzers.Analyzers.dll" />
     <Analyzer Include="..\packages\PropertyChangedAnalyzers.2.5.12.0\analyzers\dotnet\cs\PropertyChangedAnalyzers.CodeFixes.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\masts_dvr_tool.Commands\masts_dvr_tool.Commands.csproj">
+      <Project>{90C6FDBA-8541-49A9-A233-79ADDEE1232F}</Project>
+      <Name>masts_dvr_tool.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\masts_dvr_tool.Models\masts_dvr_tool.Models.csproj">
+      <Project>{33FD1FA8-3568-42E8-A4C4-8247E5120C98}</Project>
+      <Name>masts_dvr_tool.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\masts_dvr_tool.Services\masts_dvr_tool.Services.csproj">
+      <Project>{8F7A7B14-EA56-45E4-AA72-0CAA7018559E}</Project>
+      <Name>masts_dvr_tool.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

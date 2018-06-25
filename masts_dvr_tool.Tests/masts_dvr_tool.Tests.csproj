@@ -61,11 +61,41 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="DataAccess\PDFRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\PDFManagerTests.cs" />
+    <Compile Include="ViewModels\MainWindowViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="StubForms\mockForm.pdf" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\masts_dvr_tool.Commands\masts_dvr_tool.Commands.csproj">
+      <Project>{90c6fdba-8541-49a9-a233-79addee1232f}</Project>
+      <Name>masts_dvr_tool.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\masts_dvr_tool.DataAccess\masts_dvr_tool.DataAccess.csproj">
+      <Project>{746A5227-8966-4F1E-A85A-487D917CC18C}</Project>
+      <Name>masts_dvr_tool.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\masts_dvr_tool.Models\masts_dvr_tool.Models.csproj">
+      <Project>{33fd1fa8-3568-42e8-a4c4-8247e5120c98}</Project>
+      <Name>masts_dvr_tool.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\masts_dvr_tool.Services\masts_dvr_tool.Services.csproj">
+      <Project>{8f7a7b14-ea56-45e4-aa72-0caa7018559e}</Project>
+      <Name>masts_dvr_tool.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\masts_dvr_tool.ViewModels\masts_dvr_tool.ViewModels.csproj">
+      <Project>{c612cb9f-9069-43fa-8308-12e262d2a950}</Project>
+      <Name>masts_dvr_tool.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\masts_dvr_tool\masts_dvr_tool.csproj">
+      <Project>{7e2d7ecd-da3a-4064-a09d-829f15cc225f}</Project>
+      <Name>masts_dvr_tool</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

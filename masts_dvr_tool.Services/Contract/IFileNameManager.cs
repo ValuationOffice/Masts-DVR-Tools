@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace masts_dvr_tool.Models
+namespace DVRTools.Services
 {
-    public class Class1
+    public interface IFileNameManager
     {
+        string GenerateRandomFileName();
     }
 }

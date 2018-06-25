@@ -4,9 +4,55 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:masts_dvr_tool"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="720" Width="1280">
     <Grid>
         
+        
+        <Grid.RowDefinitions>
+            <RowDefinition MaxHeight="125px"/>
+            <RowDefinition MaxHeight="50px"/>
+            <RowDefinition MaxHeight="50px"/>
+            <RowDefinition MaxHeight="50px"/>
+            <RowDefinition MaxHeight="50px"/>
+            <RowDefinition MaxHeight="400px"/>
+            <RowDefinition MaxHeight="50px"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+
+        <materialDesign:Card Padding="20" Margin="16" Grid.Row="0" Grid.ColumnSpan="2">
+            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" TextAlignment="Center">VOA DVR PDF Application</TextBlock>
+        </materialDesign:Card>
+
+
+        <TextBox Text="{Binding TemplatePath}" Grid.Column="0" Grid.Row="1"/>
+        <Button Command="{Binding TemplatePathCommand}" Content="Select PDF" Grid.Column="1" Grid.Row="1"/>
+
+        <TextBox Text="{Binding OutputPath}" IsEnabled="False" Grid.Column="0" Grid.Row="2"/>
+        <Button Command="{Binding OutputPathCommand}" Content="Select ouput location" Grid.Column="1" Grid.Row="2"/>
+
+        <TextBox Text="{Binding Prefix}" Grid.Column="0" Grid.Row="3"/>
+        <Button Command="{Binding GetPDFCommand}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Content="Get Fields from Template" IsEnabled="{Binding GetPDFEnabled}"/>
+        <DataGrid ItemsSource="{Binding PDFFields}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Field" Binding="{Binding Name}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="*" Header="Value" Binding="{Binding Value}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Command="{Binding UpdatePDFCommand}" Content="Map Fields" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" IsEnabled="{Binding UpdatePDFEnabled}"/>
     </Grid>
 </Window>
