@@ -21,5 +21,11 @@ namespace masts_dvr_tool.Services.Implementation
 
             return await task;
         }
+
+        public Task UpdatePDFFields(string filepath, string prefix, string outputLocation, IEnumerable<PDFField> pdfFields)
+        {
+            var task = Task.Run(() => pdfRepository.UpdatePDFFields(filepath, prefix, outputLocation, pdfFields));
+            return task;
+        }
     }
 }

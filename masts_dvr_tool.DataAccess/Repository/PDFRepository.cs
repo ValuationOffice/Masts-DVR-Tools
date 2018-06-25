@@ -32,7 +32,7 @@ namespace masts_dvr_tool.DataAccess.Repository
                                     Value = String.Empty
                                 }
                                 );
-                            
+
                         }
                     }
 
@@ -40,6 +40,26 @@ namespace masts_dvr_tool.DataAccess.Repository
 
                 return pdfFields;
 
+            }
+
+        }
+
+        public void UpdatePDFFields(string filePath, string prefix, string outputLocation, IEnumerable<PDFField> pdfFields)
+        {
+            using (PdfDocument pdfDoc = new PdfDocument(new PdfReader(filePath), new PdfWriter(outputLocation)))
+            {
+
+                PdfAcroForm form = PdfAcroForm.GetAcroForm(pdfDoc, true);
+               
+                //Async causes crash
+                foreach (var value in pdfFields)
+                {
+                    form.GetField(value.Name).SetValue(value.Value);
+                    form.PartialFormFlattening(value.Name);
+                }
+
+                //Flattens all fields OR Flattens all fields marked to be flattened
+                form.FlattenFields();
             }
 
         }

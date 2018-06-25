@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using masts_dvr_tool.DataAccess.Contracts;
@@ -49,7 +50,47 @@ namespace masts_dvr_tool.Tests.DataAccess
         {
             List<PDFField> pdfActualItems = pdfRepository.GetPDFFields(mockPDFFilePath, PREFIX).ToList();
             Assert.AreEqual(pdfExpectedItems.Count(), pdfActualItems.Count());
-            Assert.AreEqual(pdfExpectedItems.Count(), pdfExpectedItems.Select(x => x.Name).Intersect(pdfActualItems.Select(x=>x.Name)).Count());
+            Assert.AreEqual(pdfExpectedItems.Count(), pdfExpectedItems.Select(x => x.Name).Intersect(pdfActualItems.Select(x => x.Name)).Count());
+        }
+
+        [TestMethod]
+        public void UpdatePDFFields_ShouldCreate_PDFWithDataFromUI()
+        {
+            List<PDFField> pdfActualItems = pdfRepository.GetPDFFields(mockPDFFilePath, PREFIX).ToList();
+            Assert.AreEqual(pdfExpectedItems.Count(), pdfExpectedItems.Select(x => x.Name).Intersect(pdfActualItems.Select(x => x.Name)).Count());
+            //All Values should be empty strings
+            Assert.AreEqual(pdfExpectedItems.Count(), pdfExpectedItems.Where(x => String.IsNullOrWhiteSpace(x.Value)).Count());
+
+            List<PDFField> pdfUpdatedItems = new List<PDFField>();
+
+            pdfExpectedItems.ToList().ForEach(
+                x =>
+                {
+                    if(String.IsNullOrEmpty(x.Value) || String.IsNullOrWhiteSpace(x.Value))
+                    {
+                        x.Value = "Hello";
+                        pdfUpdatedItems.Add(x);
+                    }
+                }
+
+
+                );
+
+            //Implement file name service to generate this from client
+            string mockOutputPDFFilePath = $@"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName}/StubForms/{Guid.NewGuid()}.pdf";
+
+            pdfRepository.UpdatePDFFields(mockPDFFilePath, PREFIX, mockOutputPDFFilePath, pdfUpdatedItems);
+
+            List<PDFField> pdfOutputActualItems = pdfRepository.GetPDFFields(mockOutputPDFFilePath,String.Empty).ToList();
+            //When the new form is created, it randomly creates 1-2 bits of meta data with IText branding.
+            Assert.AreEqual(1, pdfOutputActualItems.Where(x=>x.Name.StartsWith("Non")).Count());
+
+            //IO Garbage collection
+            if (File.Exists(mockOutputPDFFilePath))
+            {
+                File.Delete(mockOutputPDFFilePath);
+            }
+
         }
 
     }
