@@ -164,8 +164,12 @@ namespace masts_dvr_tool.ViewModels
         private async void GetPDF()
         {
             var result = await pdfManager.GetPDFields(TemplatePath, Prefix);
-            PDFFields = result.ToList();   
-            PDFFields = dataConnector.Connect(PDFFields, mainWindow.DataType);
+            PDFFields = result.ToList();
+
+            //Only execute if database is in use.
+            if (mainWindow.DataType != null)
+                PDFFields = dataConnector.Connect(PDFFields, mainWindow.DataType);
+
             OnPropertyChanged(nameof(PDFFields));
         }
 
@@ -185,10 +189,12 @@ namespace masts_dvr_tool.ViewModels
             string filePath = $"{OutputPath}/{fileNameManager.GenerateRandomFileName()}";
 
             ioManager.CreateDirectory(filePath);
-            
+
             await pdfManager.UpdatePDFFields(TemplatePath, "VOA", $"{filePath}/{fileNameManager.GenerateRandomFileName()}.pdf", PDFFields);
 
-            ioManager.CopyFileToDirectory(mainWindow.ExternalFilePath, filePath);
+            //Only execute if there is an external file.
+            if (!(String.IsNullOrEmpty(mainWindow.ExternalFilePath) || String.IsNullOrWhiteSpace(mainWindow.ExternalFilePath)))
+                ioManager.CopyFileToDirectory(mainWindow.ExternalFilePath, filePath);
 
             ioManager.ZipDirectory(filePath, OutputPath);
 
