@@ -59,9 +59,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contract\IDataManager.cs" />
     <Compile Include="Contract\IFileNameManager.cs" />
     <Compile Include="Contract\IIOManager.cs" />
     <Compile Include="Contract\IPDFManager.cs" />
+    <Compile Include="Implementation\DataManager.cs" />
     <Compile Include="Implementation\FileNameManager.cs" />
     <Compile Include="Implementation\IOManager.cs" />
     <Compile Include="Implementation\PDFManager.cs" />
@@ -79,6 +81,10 @@
     <ProjectReference Include="..\masts_dvr_tool.Models\masts_dvr_tool.Models.csproj">
       <Project>{33FD1FA8-3568-42E8-A4C4-8247E5120C98}</Project>
       <Name>masts_dvr_tool.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\masts_dvr_tool.Types\masts_dvr_tool.Types.csproj">
+      <Project>{48F1426B-67A8-43CE-872E-45E26B934F2C}</Project>
+      <Name>masts_dvr_tool.Types</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

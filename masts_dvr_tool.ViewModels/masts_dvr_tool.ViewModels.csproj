@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Helpers\BindableBase.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +59,10 @@
       <Project>{90C6FDBA-8541-49A9-A233-79ADDEE1232F}</Project>
       <Name>masts_dvr_tool.Commands</Name>
     </ProjectReference>
+    <ProjectReference Include="..\masts_dvr_tool.Connectors\masts_dvr_tool.Connectors.csproj">
+      <Project>{06D2B483-E0AF-4722-BA0A-04552B333331}</Project>
+      <Name>masts_dvr_tool.Connectors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\masts_dvr_tool.Models\masts_dvr_tool.Models.csproj">
       <Project>{33FD1FA8-3568-42E8-A4C4-8247E5120C98}</Project>
       <Name>masts_dvr_tool.Models</Name>
@@ -67,6 +70,10 @@
     <ProjectReference Include="..\masts_dvr_tool.Services\masts_dvr_tool.Services.csproj">
       <Project>{8F7A7B14-EA56-45E4-AA72-0CAA7018559E}</Project>
       <Name>masts_dvr_tool.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\masts_dvr_tool.Types\masts_dvr_tool.Types.csproj">
+      <Project>{48F1426B-67A8-43CE-872E-45E26B934F2C}</Project>
+      <Name>masts_dvr_tool.Types</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,7 +5,7 @@ using masts_dvr_tool.Services.Implementation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Linq;
-using masts_dvr_tool.Models;
+using masts_dvr_tool.Types;
 using masts_dvr_tool.Services.Contract;
 
 namespace masts_dvr_tool.Tests.Services

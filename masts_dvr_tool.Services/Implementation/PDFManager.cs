@@ -1,5 +1,5 @@
 ﻿using masts_dvr_tool.DataAccess.Contracts;
-using masts_dvr_tool.Models;
+using masts_dvr_tool.Types;
 using masts_dvr_tool.Services.Contract;
 using System.Collections.Generic;
 using System.Threading.Tasks;

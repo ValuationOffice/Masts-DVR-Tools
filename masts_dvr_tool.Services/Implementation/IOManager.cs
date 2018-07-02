@@ -230,5 +230,25 @@ namespace DVRTools.Services
             Directory.Delete(path);
         }
 
+        public void CopyFileToDirectory(string path, string outputPath)
+        {
+            int pos = path.LastIndexOf(@"\") + 1;
+            string tempPath = path.Substring(pos, path.Length - pos);
+            
+            try
+            {
+                File.Copy(path, $@"{outputPath}/{tempPath}");
+            }
+
+            catch (UnauthorizedAccessException ex)
+            {
+                using (EventLog eventLog = new EventLog("Application"))
+                {
+                    eventLog.Source = "Application";
+                    eventLog.WriteEntry($@"Tried copying {tempPath} to {outputPath}. The curent user does not have access rights to access this folder or file. /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
+                }
+            }
+
+        }
     }
 }

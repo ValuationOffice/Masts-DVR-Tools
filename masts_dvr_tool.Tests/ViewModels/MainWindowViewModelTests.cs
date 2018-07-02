@@ -2,11 +2,13 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using masts_dvr_tool.Services.Contract;
-using masts_dvr_tool.Models;
+using masts_dvr_tool.Types;
 using System.Collections.Generic;
 using System;
 using System.Linq;
 using DVRTools.Services;
+using masts_dvr_tool.Services.Implementation;
+using masts_dvr_tool.Connectors;
 
 namespace masts_dvr_tool.Tests.ViewModels
 {
@@ -44,8 +46,10 @@ namespace masts_dvr_tool.Tests.ViewModels
             mockPDFManager.Setup(x => x.GetPDFields(String.Empty, String.Empty)).ReturnsAsync(getPDFFieldsResponse);
 
             FileNameManager fileNameManager = new FileNameManager();
+            DataManager dataManager = new DataManager(null, null);
+            DataConnector<IVOAType> dataConnector = new DataConnector<IVOAType>();
 
-            mainWindowViewModel = new MainWindowViewModel(mockPDFManager.Object, new IOManager(fileNameManager), fileNameManager);
+            mainWindowViewModel = new MainWindowViewModel(mockPDFManager.Object, new IOManager(fileNameManager), fileNameManager, dataManager, dataConnector);
             mainWindowViewModel.Prefix = "";
             mainWindowViewModel.TemplatePath = "";
         }
@@ -94,6 +98,24 @@ namespace masts_dvr_tool.Tests.ViewModels
                     Value ="Foo"
                 }
             };
+            Assert.AreEqual(true, mainWindowViewModel.UpdatePDFEnabled);
+        }
+
+        [TestMethod]
+        public void UpdatePDFButton_ShouldBeDisabled_WhenNoOutputPath()
+        {
+            Assert.AreEqual(false, mainWindowViewModel.UpdatePDFEnabled);
+            mainWindowViewModel.PDFFields = new List<PDFField>()
+            {
+                new PDFField()
+                {
+                    Name="Foo",
+                    Value ="Foo"
+                }
+            };
+
+            Assert.AreEqual(false, mainWindowViewModel.UpdatePDFEnabled);
+            mainWindowViewModel.OutputPath = @"C:/";
             Assert.AreEqual(true, mainWindowViewModel.UpdatePDFEnabled);
         }
 

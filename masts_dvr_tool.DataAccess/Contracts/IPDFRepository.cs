@@ -1,4 +1,4 @@
-﻿using masts_dvr_tool.Models;
+﻿using masts_dvr_tool.Types;
 using System.Collections.Generic;
 
 namespace masts_dvr_tool.DataAccess.Contracts

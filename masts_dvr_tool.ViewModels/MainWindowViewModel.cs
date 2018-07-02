@@ -1,11 +1,12 @@
 ﻿using masts_dvr_tool.Commands;
-using masts_dvr_tool.Models;
 using masts_dvr_tool.Services.Contract;
-using masts_dvr_tool.Services.Implementation;
 using masts_dvr_tool.ViewModels.Helpers;
 using System.Collections.Generic;
 using System;
 using DVRTools.Services;
+using masts_dvr_tool.Models;
+using masts_dvr_tool.Types;
+using masts_dvr_tool.Connectors.Contracts;
 #if DEBUG
 using System.IO;
 #endif
@@ -18,16 +19,20 @@ namespace masts_dvr_tool.ViewModels
         private readonly IPDFManager pdfManager;
         private readonly IIOManager ioManager;
         private readonly IFileNameManager fileNameManager;
-        private MainWindow mainWindow;
+        private readonly IDataManager dataManager;
+        private readonly IDataConnector<IVOAType> dataConnector;
+        private MainWindow<IVOAType> mainWindow;
         private bool getPDFEnabled;
         private bool updatePDFEnabled;
 
-        public MainWindowViewModel(IPDFManager pdfManager, IIOManager ioManager, IFileNameManager fileNameManager)
+        public MainWindowViewModel(IPDFManager pdfManager, IIOManager ioManager, IFileNameManager fileNameManager, IDataManager dataManager, IDataConnector<IVOAType> dataConnector)
         {
-            mainWindow = new MainWindow();
+            mainWindow = dataManager.MainWindow;
             this.pdfManager = pdfManager;
             this.ioManager = ioManager;
             this.fileNameManager = fileNameManager;
+            this.dataManager = dataManager;
+            this.dataConnector = dataConnector;
 
 #if DEBUG
 
@@ -86,6 +91,7 @@ namespace masts_dvr_tool.ViewModels
 
                 mainWindow.OutputPath = value;
                 this.OnPropertyChanged();
+                this.OnPropertyChanged(nameof(this.UpdatePDFEnabled));
             }
         }
 
@@ -130,7 +136,7 @@ namespace masts_dvr_tool.ViewModels
             {
                 if (PDFFields == null)
                     updatePDFEnabled = false;
-                else if (PDFFields.Count() >= 1)
+                else if (PDFFields.Count() >= 1 && !(String.IsNullOrEmpty(OutputPath) || String.IsNullOrWhiteSpace(OutputPath)))
                     updatePDFEnabled = true;
 
                 return this.updatePDFEnabled;
@@ -151,14 +157,15 @@ namespace masts_dvr_tool.ViewModels
 
         public RelayCommand OutputPathCommand => new RelayCommand(ChooseOutputPath);
 
-        public RelayCommand TemplatePathCommand => new RelayCommand(ChooseOutputPath);
+        public RelayCommand TemplatePathCommand => new RelayCommand(ChooseTemplatePath);
 
         public RelayCommand UpdatePDFCommand => new RelayCommand(UpdatePDF);
 
         private async void GetPDF()
         {
             var result = await pdfManager.GetPDFields(TemplatePath, Prefix);
-            PDFFields = result.ToList();
+            PDFFields = result.ToList();   
+            PDFFields = dataConnector.Connect(PDFFields, mainWindow.DataType);
             OnPropertyChanged(nameof(PDFFields));
         }
 
@@ -178,8 +185,10 @@ namespace masts_dvr_tool.ViewModels
             string filePath = $"{OutputPath}/{fileNameManager.GenerateRandomFileName()}";
 
             ioManager.CreateDirectory(filePath);
-
+            
             await pdfManager.UpdatePDFFields(TemplatePath, "VOA", $"{filePath}/{fileNameManager.GenerateRandomFileName()}.pdf", PDFFields);
+
+            ioManager.CopyFileToDirectory(mainWindow.ExternalFilePath, filePath);
 
             ioManager.ZipDirectory(filePath, OutputPath);
 

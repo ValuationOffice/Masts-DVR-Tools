@@ -35,5 +35,11 @@ namespace DVRTools.Services
         /// </summary>
         /// <param name="path">Path to the directory.</param>
         void DeleteDirectory(string path);
+        /// <summary>
+        /// Copy a file from one location to another
+        /// </summary>
+        /// <param name="path">Path of original file</param>
+        /// <param name="outputPath">Location where file will be copied to</param>
+        void CopyFileToDirectory(string path, string outputPath);
     }
 }

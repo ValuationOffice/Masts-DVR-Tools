@@ -1,7 +1,7 @@
 ﻿using iText.Forms;
 using iText.Kernel.Pdf;
 using masts_dvr_tool.DataAccess.Contracts;
-using masts_dvr_tool.Models;
+using masts_dvr_tool.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,25 +19,30 @@ namespace masts_dvr_tool.DataAccess.Repository
 
                 List<PDFField> pdfFields = new List<PDFField>();
 
+
                 form.GetFormFields().AsParallel().ForAll(
-                    f =>
-                    {
-                        if (f.Key.StartsWith(prefix))
-                        {
-                            pdfFields.Add(
+                     f =>
+                     {
+                         lock (this) //Prevent threads from trying to write at same time.
+                         {
+                             if (f.Key.StartsWith(prefix))
+                             {
+                                 pdfFields.Add(
 
-                                new PDFField()
-                                {
-                                    Name = f.Key,
-                                    Value = String.Empty
-                                }
-                                );
+                                     new PDFField()
+                                     {
+                                         Name = f.Key,
+                                         Value = String.Empty
+                                     }
+                                     );
 
-                        }
-                    }
+                             }
+                         }
+                         
+                     }
 
-                    );
-
+                     );
+                
                 return pdfFields;
 
             }
@@ -50,7 +55,7 @@ namespace masts_dvr_tool.DataAccess.Repository
             {
 
                 PdfAcroForm form = PdfAcroForm.GetAcroForm(pdfDoc, true);
-               
+
                 //Async causes crash
                 foreach (var value in pdfFields)
                 {
