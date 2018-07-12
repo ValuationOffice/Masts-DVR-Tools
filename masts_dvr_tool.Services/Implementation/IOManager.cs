@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Windows;
 using System.Linq;
 using System.Diagnostics;
+using Ionic.Zip;
 
 namespace DVRTools.Services
 {
@@ -53,7 +53,11 @@ namespace DVRTools.Services
 
             try
             {
-                ZipFile.CreateFromDirectory(inputLocation, $@"{outputLocation}\{fileName}.zip");
+                using (ZipFile zip = new ZipFile())
+                {
+                    zip.AddDirectory(inputLocation);
+                    zip.Save($@"{outputLocation}\{fileName}.zip");
+                }
             }
 
             catch (DirectoryNotFoundException ex)
@@ -106,54 +110,6 @@ namespace DVRTools.Services
                     eventLog.WriteEntry($@"Cannot Open Zip File {path} /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
                 }
             }
-        }
-
-        private void ZipFileToDirectory(string fileName, string outputLocation)
-        {
-            try
-            {
-                using (ZipArchive zip = ZipFile.Open($@"{outputLocation}\{fileName}.zip", ZipArchiveMode.Create))
-                {
-                    zip.CreateEntryFromFile(fileName, fileName);
-                }
-            }
-
-            catch (IOException ex)
-            {
-                using (EventLog eventLog = new EventLog("Application"))
-                {
-                    eventLog.Source = "Application";
-                    eventLog.WriteEntry($@"Cannot create zipfile within {outputLocation} /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
-                }
-            }
-
-            catch (InvalidDataException ex)
-            {
-                using (EventLog eventLog = new EventLog("Application"))
-                {
-                    eventLog.Source = "Application";
-                    eventLog.WriteEntry($@"Could not create Zipfile as the data was in an invalid format /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
-                }
-            }
-
-            catch (ObjectDisposedException ex)
-            {
-                using (EventLog eventLog = new EventLog("Application"))
-                {
-                    eventLog.Source = "Application";
-                    eventLog.WriteEntry($@"Cannot create zipfile as the Zip object was disposed too early. /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
-                }
-            }
-
-            catch (Exception ex)
-            {
-                using (EventLog eventLog = new EventLog("Application"))
-                {
-                    eventLog.Source = "Application";
-                    eventLog.WriteEntry($@"The following exception occured: /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
-                }
-            }
-             
         }
 
         public void CreateDirectory(string path)
