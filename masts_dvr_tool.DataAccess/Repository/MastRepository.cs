@@ -46,15 +46,18 @@ namespace masts_dvr_tool.DataAccess.Repository
                     {
                         if (rowCount == 0) //Data is duplicated in numerous rows
                         {
-                            mastDataObject.Address1 = reader["Address1"].ToString();
+                            mastDataObject.VOAAddressLine1 = reader["Address1"].ToString();
                             mastDataObject.VOAAddressLine2 = reader["Address2"].ToString();
                             mastDataObject.VOAAddressLine3 = reader["Address3"].ToString();
                             mastDataObject.VOAAddressLine4 = reader["Address4"].ToString();
+                            mastDataObject.VOAPostcode = reader["Post Code"].ToString();
+                            mastDataObject.VOACounty = reader["County"].ToString();
+                            mastDataObject.VOAOccupier = reader["Operator"].ToString();
+
                             mastDataObject.VOAEffectiveFrom = reader["EffectiveDate"].ToString();
                             mastDataObject.VOABAName = reader["BA Name"].ToString();
                             mastDataObject.VOAShared = Convert.ToDouble(reader["NumberOfSharers"]) > 0 ? "Yes" : "No";
                             mastDataObject.VOASiteType = reader["Location type"].ToString();
-                            mastDataObject.VOAMastStructureType = "Not sure what database field";
 
                         }
 
@@ -88,8 +91,9 @@ namespace masts_dvr_tool.DataAccess.Repository
                         mastDataObject.VOAMastHeight = reader["Height"].ToString();
                         mastDataObject.VOASiteArea = reader["SiteArea"].ToString();
                         mastDataObject.VOAM25 = reader["InsideM25"].ToString() == "NULL" ? "No" : "Yes";
-                        mastDataObject.VOACellType = reader["MastType"].ToString();
+                        mastDataObject.VOACellType = reader["CellType"].ToString();
                         mastDataObject.VOARateableValue = $"£{reader["CalculatedRV"]}";
+                        mastDataObject.VOAMastStructureType = reader["MastType"].ToString();
                     }
 
 
