@@ -12,7 +12,7 @@ namespace masts_dvr_tool.Tests.DataAccess
     public class CSVRepositoryTests
     {
         [TestMethod]
-        public void WriteZipsToCSVFile_ShouldWriteToCSV()
+        public async System.Threading.Tasks.Task WriteZipsToCSVFile_ShouldWriteToCSVAsync()
         {
             CSVRepository csvRepository = new CSVRepository();
 
@@ -47,7 +47,7 @@ namespace masts_dvr_tool.Tests.DataAccess
                 },
             };
 
-            csvRepository.WriteZipsToCSVFile(filepath, records);
+            await csvRepository.WriteZipsToCSVFileAsync(filepath, records);
 
             List<string[]> csvResult = ReadCSV(filepath);
 

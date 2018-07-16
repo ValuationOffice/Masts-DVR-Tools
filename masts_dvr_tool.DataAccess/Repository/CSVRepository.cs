@@ -12,7 +12,7 @@ namespace masts_dvr_tool.DataAccess.Repository
 {
     public class CSVRepository : ICSVRepository
     {
-        public void WriteZipsToCSVFile(string path, IEnumerable<ZipFile> records)
+        public async Task WriteZipsToCSVFileAsync(string path, IEnumerable<ZipFile> records)
         {
             using (TextWriter writer = new StreamWriter(path))
             {
@@ -21,10 +21,10 @@ namespace masts_dvr_tool.DataAccess.Repository
                 foreach (var record in records)
                 {
                     csvWriter.WriteRecord(record);
-                    csvWriter.NextRecord();
+                    await csvWriter.NextRecordAsync();
                 }
 
-                csvWriter.Flush();
+               await csvWriter.FlushAsync();
             }
 
         }

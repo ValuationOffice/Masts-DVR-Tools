@@ -9,6 +9,6 @@ namespace masts_dvr_tool.DataAccess.Contracts
 {
     public interface ICSVRepository
     {
-        void WriteZipsToCSVFile(string path, IEnumerable<ZipFile> records);
+        Task WriteZipsToCSVFileAsync(string path, IEnumerable<ZipFile> records);
     }
 }
