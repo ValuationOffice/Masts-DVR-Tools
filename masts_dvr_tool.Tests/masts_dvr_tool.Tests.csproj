@@ -67,6 +67,7 @@
     <Compile Include="DataAccess\CSVRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\PDFManagerTests.cs" />
+    <Compile Include="Services\CSVManagerTests.cs" />
     <Compile Include="ViewModels\MainWindowViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>

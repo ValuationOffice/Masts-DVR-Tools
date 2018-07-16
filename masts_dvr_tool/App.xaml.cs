@@ -44,6 +44,7 @@ namespace masts_dvr_tool
             Container.Bind<IDataManager>().To<DataManager>().WithConstructorArgument("args", args.Args);
             Container.Bind<IDataConnector<IVOAType>>().To<DataConnector<IVOAType>>();
             Container.Bind<ICSVRepository>().To<CSVRepository>();
+            Container.Bind<ICSVManager>().To<CSVManager>();
         }
 
         private void ComposeObjects()

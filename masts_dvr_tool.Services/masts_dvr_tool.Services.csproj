@@ -55,10 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contract\ICSVManager.cs" />
     <Compile Include="Contract\IDataManager.cs" />
     <Compile Include="Contract\IFileNameManager.cs" />
     <Compile Include="Contract\IIOManager.cs" />
     <Compile Include="Contract\IPDFManager.cs" />
+    <Compile Include="Implementation\CSVManager.cs" />
     <Compile Include="Implementation\DataManager.cs" />
     <Compile Include="Implementation\FileNameManager.cs" />
     <Compile Include="Implementation\IOManager.cs" />

@@ -206,5 +206,47 @@ namespace DVRTools.Services
             }
 
         }
+
+        public void CreateFile(string path)
+        {
+            FileStream fileStream = null;
+            try
+            {
+                fileStream = File.Create(path);
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                using (EventLog eventLog = new EventLog("Application"))
+                {
+                    eventLog.Source = "Application";
+                    eventLog.WriteEntry($@"Tried creating Directory within {path}. The directory could not be found. /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
+                }
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                using (EventLog eventLog = new EventLog("Application"))
+                {
+                    eventLog.Source = "Application";
+                    eventLog.WriteEntry($@"Tried creating file {path}. The curent user does not have access rights to access this folder or file. /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
+                }
+            }
+            catch (Exception ex)
+            {
+                using (EventLog eventLog = new EventLog("Application"))
+                {
+                    eventLog.Source = "Application";
+                    eventLog.WriteEntry($@"Tried creating Directory within {path}. The following exception occured:. /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
+                }
+            }
+            finally
+            {
+                fileStream?.Dispose();
+            }
+        }
+
+        public bool FileExists(string path)
+        {
+            return File.Exists(path);
+        }
     }
 }

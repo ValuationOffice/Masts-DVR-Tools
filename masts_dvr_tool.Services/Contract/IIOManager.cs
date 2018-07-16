@@ -41,5 +41,16 @@ namespace DVRTools.Services
         /// <param name="path">Path of original file</param>
         /// <param name="outputPath">Location where file will be copied to</param>
         void CopyFileToDirectory(string path, string outputPath);
+        /// <summary>
+        /// Creates a file in the specified directory
+        /// </summary>
+        /// <param name="path">File name and location</param>
+        void CreateFile(string path);
+        /// <summary>
+        /// Check if file Exists
+        /// </summary>
+        /// <param name="path">File name</param>
+        /// <returns></returns>
+        bool FileExists(string path);
     }
 }
