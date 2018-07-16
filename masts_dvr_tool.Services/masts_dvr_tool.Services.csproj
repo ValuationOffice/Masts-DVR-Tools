@@ -59,11 +59,13 @@
     <Compile Include="Contract\IDataManager.cs" />
     <Compile Include="Contract\IFileNameManager.cs" />
     <Compile Include="Contract\IIOManager.cs" />
+    <Compile Include="Contract\IPasswordGenerator.cs" />
     <Compile Include="Contract\IPDFManager.cs" />
     <Compile Include="Implementation\CSVManager.cs" />
     <Compile Include="Implementation\DataManager.cs" />
     <Compile Include="Implementation\FileNameManager.cs" />
     <Compile Include="Implementation\IOManager.cs" />
+    <Compile Include="Implementation\PasswordGenerator.cs" />
     <Compile Include="Implementation\PDFManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
