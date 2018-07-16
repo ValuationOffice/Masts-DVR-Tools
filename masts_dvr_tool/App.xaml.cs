@@ -43,6 +43,7 @@ namespace masts_dvr_tool
             Container.Bind<IMastRepository>().To<MastRepository>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["MastsConnectionString"].ConnectionString);
             Container.Bind<IDataManager>().To<DataManager>().WithConstructorArgument("args", args.Args);
             Container.Bind<IDataConnector<IVOAType>>().To<DataConnector<IVOAType>>();
+            Container.Bind<ICSVRepository>().To<CSVRepository>();
         }
 
         private void ComposeObjects()

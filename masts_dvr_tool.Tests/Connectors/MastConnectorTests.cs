@@ -15,7 +15,7 @@ namespace masts_dvr_tool.Tests.Connectors
         {
             Mast mast = new Mast()
             {
-                Address1 = "Address One",
+                VOAAddressLine1 = "Address One",
                 VOAAddressLine2 = "Address Two",
                 VOAAddressLine3 = "Address Three",
                 VOAAddressLine4 = "Address Four",

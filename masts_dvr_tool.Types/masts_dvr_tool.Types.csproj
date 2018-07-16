@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mast.cs" />
+    <Compile Include="ZipFile.cs" />
     <Compile Include="PDFField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IVOAType.cs" />

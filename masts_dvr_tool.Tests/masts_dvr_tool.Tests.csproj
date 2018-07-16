@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Connectors\MastConnectorTests.cs" />
     <Compile Include="DataAccess\PDFRepositoryTests.cs" />
+    <Compile Include="DataAccess\CSVRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\PDFManagerTests.cs" />
     <Compile Include="ViewModels\MainWindowViewModelTests.cs" />
