@@ -25,6 +25,7 @@
             <RowDefinition MaxHeight="50px"/>
             <RowDefinition MaxHeight="400px"/>
             <RowDefinition MaxHeight="50px"/>
+            <RowDefinition MaxHeight="50px"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -52,7 +53,8 @@
                 <DataGridTextColumn Width="*" Header="Value" Binding="{Binding Value}"/>
             </DataGrid.Columns>
         </DataGrid>
-
-        <Button Command="{Binding UpdatePDFCommand}" Content="Map Fields" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" IsEnabled="{Binding UpdatePDFEnabled}"/>
+        <Label Content="{Binding EncryptionLabel}" Grid.Column="0" Grid.Row="6"/>
+        <CheckBox IsChecked="{Binding EncryptionEnabled}" Grid.Column="1" Grid.Row="6"/>
+        <Button Command="{Binding UpdatePDFCommand}" Content="Map Fields" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" IsEnabled="{Binding UpdatePDFEnabled}"/>
     </Grid>
 </Window>

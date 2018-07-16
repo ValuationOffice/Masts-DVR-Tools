@@ -21,11 +21,22 @@ namespace masts_dvr_tool.ViewModels
         private readonly IFileNameManager fileNameManager;
         private readonly IDataManager dataManager;
         private readonly IDataConnector<IVOAType> dataConnector;
+        private readonly ICSVManager csvManager;
+        private readonly IPasswordGenerator passwordGenerator;
         private MainWindow<IVOAType> mainWindow;
         private bool getPDFEnabled;
         private bool updatePDFEnabled;
+        private string encryptionLabel;
+        private bool encryptionEnabled;
 
-        public MainWindowViewModel(IPDFManager pdfManager, IIOManager ioManager, IFileNameManager fileNameManager, IDataManager dataManager, IDataConnector<IVOAType> dataConnector)
+        public MainWindowViewModel(IPDFManager pdfManager,
+            IIOManager ioManager,
+            IFileNameManager fileNameManager,
+            IDataManager dataManager,
+            IDataConnector<IVOAType> dataConnector,
+            ICSVManager csvManager,
+            IPasswordGenerator passwordGenerator
+            )
         {
             mainWindow = dataManager.MainWindow;
             this.pdfManager = pdfManager;
@@ -33,16 +44,21 @@ namespace masts_dvr_tool.ViewModels
             this.fileNameManager = fileNameManager;
             this.dataManager = dataManager;
             this.dataConnector = dataConnector;
+            this.csvManager = csvManager;
+            this.passwordGenerator = passwordGenerator;
 
 #if DEBUG
 
-            Prefix = "VOA";
             TemplatePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
 
             TemplatePath = Path.GetFullPath(Path.Combine(TemplatePath, @"..\"));
 
             TemplatePath += @"masts_dvr_tool.Tests\StubForms\mockForm.pdf";
 #endif
+
+            Prefix = "VOA";
+            EncryptionLabel = "Encryption?";
+            EncryptionEnabled = true;
 
         }
 
@@ -153,6 +169,36 @@ namespace masts_dvr_tool.ViewModels
             }
         }
 
+        public string EncryptionLabel
+        {
+            get => this.encryptionLabel;
+            set
+            {
+                if (value == this.encryptionLabel)
+                {
+                    return;
+                }
+
+                this.encryptionLabel = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public bool EncryptionEnabled
+        {
+            get => this.encryptionEnabled;
+            set
+            {
+                if (value == this.encryptionEnabled)
+                {
+                    return;
+                }
+
+                this.encryptionEnabled = value;
+                this.OnPropertyChanged();
+            }
+        }
+
         public RelayCommand GetPDFCommand => new RelayCommand(GetPDF);
 
         public RelayCommand OutputPathCommand => new RelayCommand(ChooseOutputPath);
@@ -196,7 +242,28 @@ namespace masts_dvr_tool.ViewModels
             if (!(String.IsNullOrEmpty(mainWindow.ExternalFilePath) || String.IsNullOrWhiteSpace(mainWindow.ExternalFilePath)))
                 ioManager.CopyFileToDirectory(mainWindow.ExternalFilePath, filePath);
 
-            ioManager.ZipDirectory(filePath, OutputPath);
+            string password = passwordGenerator.GeneratePassword();
+
+            if (EncryptionEnabled)
+            {
+                ioManager.ZipDirectory(filePath, OutputPath, password);
+
+                List<ZipFile> zipFiles = new List<ZipFile>()
+                {
+                    new ZipFile()
+                {
+                    FilePath = filePath,
+                    Password = password
+                }
+
+            };
+
+                string csvLocation = $"{OutputPath}/ZipPasswords.csv";
+                await csvManager.WriteZipsToCSVFileAsync(csvLocation, zipFiles);
+                ioManager.OpenCSVFile(csvLocation);
+            }
+            else
+                ioManager.ZipDirectory(filePath, OutputPath);
 
             ioManager.DeleteDirectory(filePath);
         }

@@ -9,6 +9,7 @@ using System.Linq;
 using DVRTools.Services;
 using masts_dvr_tool.Services.Implementation;
 using masts_dvr_tool.Connectors;
+using masts_dvr_tool.DataAccess.Repository;
 
 namespace masts_dvr_tool.Tests.ViewModels
 {
@@ -48,8 +49,7 @@ namespace masts_dvr_tool.Tests.ViewModels
             FileNameManager fileNameManager = new FileNameManager();
             DataManager dataManager = new DataManager(null, null);
             DataConnector<IVOAType> dataConnector = new DataConnector<IVOAType>();
-
-            mainWindowViewModel = new MainWindowViewModel(mockPDFManager.Object, new IOManager(fileNameManager), fileNameManager, dataManager, dataConnector);
+            mainWindowViewModel = new MainWindowViewModel(mockPDFManager.Object, new IOManager(fileNameManager), fileNameManager, dataManager, dataConnector,new CSVManager(new CSVRepository(), new IOManager(new FileNameManager())), new PasswordGenerator());
             mainWindowViewModel.Prefix = "";
             mainWindowViewModel.TemplatePath = "";
         }

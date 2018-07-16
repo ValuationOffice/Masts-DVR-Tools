@@ -47,7 +47,7 @@ namespace DVRTools.Services
             return folderPath;
         }
 
-        public void ZipDirectory(string inputLocation, string outputLocation)
+        public void ZipDirectory(string inputLocation, string outputLocation, string password = "")
         {
             string fileName = fileNameService.GenerateRandomFileName();
 
@@ -55,6 +55,8 @@ namespace DVRTools.Services
             {
                 using (ZipFile zip = new ZipFile())
                 {
+                    if (password != String.Empty)
+                        zip.Password = password;
                     zip.AddDirectory(inputLocation);
                     zip.Save($@"{outputLocation}\{fileName}.zip");
                 }
@@ -97,7 +99,7 @@ namespace DVRTools.Services
         {
             try
             {
-                if (path.EndsWith(".zip"))
+                if (path.ToLower().EndsWith(".zip"))
                     System.Diagnostics.Process.Start(path);
                 else
                     throw new Exception("File is not of type .zip");
@@ -108,6 +110,25 @@ namespace DVRTools.Services
                 {
                     eventLog.Source = "Application";
                     eventLog.WriteEntry($@"Cannot Open Zip File {path} /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
+                }
+            }
+        }
+
+        public void OpenCSVFile(string path)
+        {
+            try
+            {
+                if (path.ToLower().EndsWith(".csv"))
+                    System.Diagnostics.Process.Start(path);
+                else
+                    throw new Exception("File is not of type csv");
+            }
+            catch (Exception ex)
+            {
+                using (EventLog eventLog = new EventLog("Application"))
+                {
+                    eventLog.Source = "Application";
+                    eventLog.WriteEntry($@"Cannot Open CSV File {path} /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
                 }
             }
         }
@@ -147,7 +168,7 @@ namespace DVRTools.Services
                 }
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 using (EventLog eventLog = new EventLog("Application"))
                 {
@@ -180,7 +201,7 @@ namespace DVRTools.Services
                     }
                 }
 
-               
+
             }
 
             Directory.Delete(path);
@@ -190,7 +211,7 @@ namespace DVRTools.Services
         {
             int pos = path.LastIndexOf(@"\") + 1;
             string tempPath = path.Substring(pos, path.Length - pos);
-            
+
             try
             {
                 File.Copy(path, $@"{outputPath}/{tempPath}");
