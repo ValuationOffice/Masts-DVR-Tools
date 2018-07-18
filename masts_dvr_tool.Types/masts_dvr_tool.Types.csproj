@@ -45,6 +45,7 @@
     <Compile Include="PDFField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IVOAType.cs" />
+    <Compile Include ="Helpers/Bindablebase" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace masts_dvr_tool.ViewModels.Helpers
+namespace masts_dvr_tool.Types.Helpers
 {
     public class BindableBase: INotifyPropertyChanged
     {
