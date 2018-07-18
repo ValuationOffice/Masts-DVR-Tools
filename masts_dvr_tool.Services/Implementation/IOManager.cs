@@ -97,6 +97,22 @@ namespace DVRTools.Services
 
         private void OpenZipFile(string path)
         {
+
+            try
+            {
+                if (String.IsNullOrWhiteSpace(path) || String.IsNullOrEmpty(path))
+                    throw new ArgumentException("Path is empty");
+            }
+
+            catch (ArgumentException ex)
+            {
+                using (EventLog eventLog = new EventLog("Application"))
+                {
+                    eventLog.Source = "Application";
+                    eventLog.WriteEntry($@"Cannot Open Zip File {path} . The Path could not be found. /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
+                }
+            }
+
             try
             {
                 if (path.ToLower().EndsWith(".zip"))
@@ -116,6 +132,22 @@ namespace DVRTools.Services
 
         public void OpenCSVFile(string path)
         {
+
+            try
+            {
+                if (String.IsNullOrWhiteSpace(path) || String.IsNullOrEmpty(path))
+                    throw new ArgumentException("Path is empty");
+            }
+
+            catch (ArgumentException ex)
+            {
+                using (EventLog eventLog = new EventLog("Application"))
+                {
+                    eventLog.Source = "Application";
+                    eventLog.WriteEntry($@"Cannot Open CSV File {path} . The Path could not be found. /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
+                }
+            }
+
             try
             {
                 if (path.ToLower().EndsWith(".csv"))
