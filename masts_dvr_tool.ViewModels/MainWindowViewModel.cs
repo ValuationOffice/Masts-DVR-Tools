@@ -1,6 +1,5 @@
 ﻿using masts_dvr_tool.Commands;
 using masts_dvr_tool.Services.Contract;
-using masts_dvr_tool.ViewModels.Helpers;
 using System.Collections.Generic;
 using System;
 using DVRTools.Services;
@@ -8,6 +7,7 @@ using masts_dvr_tool.Models;
 using masts_dvr_tool.Types;
 using masts_dvr_tool.Connectors.Contracts;
 using masts_dvr_tool.Services.Implementation;
+using masts_dvr_tool.Types.Helpers;
 #if DEBUG
 using System.IO;
 #endif

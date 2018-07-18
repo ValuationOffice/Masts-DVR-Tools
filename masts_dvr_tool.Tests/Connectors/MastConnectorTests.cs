@@ -18,25 +18,12 @@ namespace masts_dvr_tool.Tests.Connectors
                 VOAAddressLine1 = "Address One",
                 VOAAddressLine2 = "Address Two",
                 VOAAddressLine3 = "Address Three",
-                VOAAddressLine4 = "Address Four",
-                VOABAName = "SillyBA",
-                VOABARefNumber = "BA Ref",
-                VOACellType = "Cellular Type",
-                VOACtil = "asdasd",
-                VOAEastings = "1212",
-                VOAEffectiveFrom = "April 2017",
-                VOAM25 = "True",
-                VOAMastHeight = "200m",
+                VOAAddressLine4 = "Address Four",             
                 VOAMastOperator = "asasd",
-                VOAMastStructureType = "Structure Type",
-                VOANorthings = "300",
                 VOAOccupier = "Occupier",
                 VOARateableValue = "300",
                 VOAShared = "Shared",
-                VOASharedWith = "Many",
-                VOASiteArea = "300",
-                VOASiteRef = "reference",
-                VOASiteType = "SiteType"
+                VOASharedWith = "Many"
             };
 
             DataConnector<Mast> mastsConnector = new DataConnector<Mast>();
@@ -45,8 +32,8 @@ namespace masts_dvr_tool.Tests.Connectors
             {
                 new PDFField()
                 {
-                    Name = "VOANorthings",
-                    Value = "300"
+                    Name = "VOAShared",
+                    Value = "Shared"
 
                 },
 
@@ -65,9 +52,9 @@ namespace masts_dvr_tool.Tests.Connectors
             //Preserve order
             Assert.AreEqual(fields[0].Name, result[0].Name);
 
-            string updatedResult = result.Where(x => x.Name == "VOANorthings").FirstOrDefault().Value;
+            string updatedResult = result.Where(x => x.Name == "VOAShared").FirstOrDefault().Value;
 
-            Assert.AreEqual(mast.VOANorthings, updatedResult);
+            Assert.AreEqual(mast.VOAShared, updatedResult);
 
         }
 
