@@ -26,6 +26,21 @@ namespace masts_dvr_tool.Services.Implementation
         {
             try
             {
+                if (String.IsNullOrWhiteSpace(path) || String.IsNullOrEmpty(path))
+                    throw new ArgumentException("Path is empty");
+            }
+
+            catch (ArgumentException ex)
+            {
+                using (EventLog eventLog = new EventLog("Application"))
+                {
+                    eventLog.Source = "Application";
+                    eventLog.WriteEntry($@"Cannot find path: {path} . The Path could not be found. /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
+                }
+            }
+
+            try
+            {
                 if (!path.ToLower().EndsWith(".csv"))
                     throw new ArgumentException("Path is not a CSV");
             }
