@@ -49,7 +49,7 @@ namespace masts_dvr_tool.Tests.ViewModels
             FileNameManager fileNameManager = new FileNameManager();
             DataManager dataManager = new DataManager(null, null);
             DataConnector<IVOAType> dataConnector = new DataConnector<IVOAType>();
-            mainWindowViewModel = new MainWindowViewModel(mockPDFManager.Object, new IOManager(fileNameManager), fileNameManager, dataManager, dataConnector,new CSVManager(new CSVRepository(), new IOManager(new FileNameManager())), new PasswordGenerator());
+            mainWindowViewModel = new MainWindowViewModel(mockPDFManager.Object, new IOManager(fileNameManager), fileNameManager, dataManager, dataConnector,new CSVManager(new CSVRepository(), new IOManager(new FileNameManager())));
             mainWindowViewModel.Prefix = "";
             mainWindowViewModel.TemplatePath = "";
         }

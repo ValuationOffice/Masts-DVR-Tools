@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace masts_dvr_tool.Services.Implementation
 {
-    public class PasswordGenerator : IPasswordGenerator
-    {
-        public string GeneratePassword()
+    public static class PasswordGenerator
+    { 
+        public static string GeneratePassword()
         {
             Random random = new Random();
 

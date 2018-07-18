@@ -7,6 +7,7 @@ using DVRTools.Services;
 using masts_dvr_tool.Models;
 using masts_dvr_tool.Types;
 using masts_dvr_tool.Connectors.Contracts;
+using masts_dvr_tool.Services.Implementation;
 #if DEBUG
 using System.IO;
 #endif
@@ -22,7 +23,6 @@ namespace masts_dvr_tool.ViewModels
         private readonly IDataManager dataManager;
         private readonly IDataConnector<IVOAType> dataConnector;
         private readonly ICSVManager csvManager;
-        private readonly IPasswordGenerator passwordGenerator;
         private MainWindow<IVOAType> mainWindow;
         private bool getPDFEnabled;
         private bool updatePDFEnabled;
@@ -34,8 +34,7 @@ namespace masts_dvr_tool.ViewModels
             IFileNameManager fileNameManager,
             IDataManager dataManager,
             IDataConnector<IVOAType> dataConnector,
-            ICSVManager csvManager,
-            IPasswordGenerator passwordGenerator
+            ICSVManager csvManager
             )
         {
             mainWindow = dataManager.MainWindow;
@@ -45,7 +44,6 @@ namespace masts_dvr_tool.ViewModels
             this.dataManager = dataManager;
             this.dataConnector = dataConnector;
             this.csvManager = csvManager;
-            this.passwordGenerator = passwordGenerator;
 
 #if DEBUG
 
@@ -242,7 +240,7 @@ namespace masts_dvr_tool.ViewModels
             if (!(String.IsNullOrEmpty(mainWindow.ExternalFilePath) || String.IsNullOrWhiteSpace(mainWindow.ExternalFilePath)))
                 ioManager.CopyFileToDirectory(mainWindow.ExternalFilePath, filePath);
 
-            string password = passwordGenerator.GeneratePassword();
+            string password = PasswordGenerator.GeneratePassword();
 
             if (EncryptionEnabled)
             {

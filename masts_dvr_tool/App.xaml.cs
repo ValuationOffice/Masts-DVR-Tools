@@ -45,7 +45,6 @@ namespace masts_dvr_tool
             Container.Bind<IDataConnector<IVOAType>>().To<DataConnector<IVOAType>>();
             Container.Bind<ICSVRepository>().To<CSVRepository>();
             Container.Bind<ICSVManager>().To<CSVManager>();
-            Container.Bind<IPasswordGenerator>().To<PasswordGenerator>();
         }
 
         private void ComposeObjects()
