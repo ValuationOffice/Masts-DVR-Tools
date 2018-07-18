@@ -40,12 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\BindableBase.cs" />
     <Compile Include="Mast.cs" />
     <Compile Include="ZipFile.cs" />
     <Compile Include="PDFField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IVOAType.cs" />
-    <Compile Include ="Helpers/Bindablebase" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
