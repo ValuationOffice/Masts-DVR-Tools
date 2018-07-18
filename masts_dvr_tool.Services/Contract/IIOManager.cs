@@ -24,7 +24,7 @@ namespace DVRTools.Services
         /// </summary>
         /// <param name="inputLocation">The location of a Directory to Zip</param>
         /// <param name="outputLocation">The location where the Zip file should be put</param>
-        void ZipDirectory(string inputLocation, string outputLocation);
+        void ZipDirectory(string inputLocation, string outputLocation, string password = "");
         /// <summary>
         /// Creates a new directory at the specified path
         /// </summary>
@@ -41,5 +41,21 @@ namespace DVRTools.Services
         /// <param name="path">Path of original file</param>
         /// <param name="outputPath">Location where file will be copied to</param>
         void CopyFileToDirectory(string path, string outputPath);
+        /// <summary>
+        /// Creates a file in the specified directory
+        /// </summary>
+        /// <param name="path">File name and location</param>
+        void CreateFile(string path);
+        /// <summary>
+        /// Check if file Exists
+        /// </summary>
+        /// <param name="path">File name</param>
+        /// <returns></returns>
+        bool FileExists(string path);
+        /// <summary>
+        /// Open a file of type CSV with the default application
+        /// </summary>
+        /// <param name="path">CSV file path</param>
+        void OpenCSVFile(string path);
     }
 }

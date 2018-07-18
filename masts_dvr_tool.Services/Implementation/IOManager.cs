@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Windows;
 using System.Linq;
 using System.Diagnostics;
+using Ionic.Zip;
 
 namespace DVRTools.Services
 {
@@ -47,13 +47,19 @@ namespace DVRTools.Services
             return folderPath;
         }
 
-        public void ZipDirectory(string inputLocation, string outputLocation)
+        public void ZipDirectory(string inputLocation, string outputLocation, string password = "")
         {
             string fileName = fileNameService.GenerateRandomFileName();
 
             try
             {
-                ZipFile.CreateFromDirectory(inputLocation, $@"{outputLocation}\{fileName}.zip");
+                using (ZipFile zip = new ZipFile())
+                {
+                    if (password != String.Empty)
+                        zip.Password = password;
+                    zip.AddDirectory(inputLocation);
+                    zip.Save($@"{outputLocation}\{fileName}.zip");
+                }
             }
 
             catch (DirectoryNotFoundException ex)
@@ -91,9 +97,25 @@ namespace DVRTools.Services
 
         private void OpenZipFile(string path)
         {
+
             try
             {
-                if (path.EndsWith(".zip"))
+                if (String.IsNullOrWhiteSpace(path) || String.IsNullOrEmpty(path))
+                    throw new ArgumentException("Path is empty");
+            }
+
+            catch (ArgumentException ex)
+            {
+                using (EventLog eventLog = new EventLog("Application"))
+                {
+                    eventLog.Source = "Application";
+                    eventLog.WriteEntry($@"Cannot Open Zip File {path} . The Path could not be found. /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
+                }
+            }
+
+            try
+            {
+                if (path.ToLower().EndsWith(".zip"))
                     System.Diagnostics.Process.Start(path);
                 else
                     throw new Exception("File is not of type .zip");
@@ -108,52 +130,39 @@ namespace DVRTools.Services
             }
         }
 
-        private void ZipFileToDirectory(string fileName, string outputLocation)
+        public void OpenCSVFile(string path)
         {
+
             try
             {
-                using (ZipArchive zip = ZipFile.Open($@"{outputLocation}\{fileName}.zip", ZipArchiveMode.Create))
-                {
-                    zip.CreateEntryFromFile(fileName, fileName);
-                }
+                if (String.IsNullOrWhiteSpace(path) || String.IsNullOrEmpty(path))
+                    throw new ArgumentException("Path is empty");
             }
 
-            catch (IOException ex)
+            catch (ArgumentException ex)
             {
                 using (EventLog eventLog = new EventLog("Application"))
                 {
                     eventLog.Source = "Application";
-                    eventLog.WriteEntry($@"Cannot create zipfile within {outputLocation} /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
+                    eventLog.WriteEntry($@"Cannot Open CSV File {path} . The Path could not be found. /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
                 }
             }
 
-            catch (InvalidDataException ex)
+            try
             {
-                using (EventLog eventLog = new EventLog("Application"))
-                {
-                    eventLog.Source = "Application";
-                    eventLog.WriteEntry($@"Could not create Zipfile as the data was in an invalid format /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
-                }
+                if (path.ToLower().EndsWith(".csv"))
+                    System.Diagnostics.Process.Start(path);
+                else
+                    throw new Exception("File is not of type csv");
             }
-
-            catch (ObjectDisposedException ex)
-            {
-                using (EventLog eventLog = new EventLog("Application"))
-                {
-                    eventLog.Source = "Application";
-                    eventLog.WriteEntry($@"Cannot create zipfile as the Zip object was disposed too early. /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
-                }
-            }
-
             catch (Exception ex)
             {
                 using (EventLog eventLog = new EventLog("Application"))
                 {
                     eventLog.Source = "Application";
-                    eventLog.WriteEntry($@"The following exception occured: /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
+                    eventLog.WriteEntry($@"Cannot Open CSV File {path} /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
                 }
             }
-             
         }
 
         public void CreateDirectory(string path)
@@ -191,7 +200,7 @@ namespace DVRTools.Services
                 }
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 using (EventLog eventLog = new EventLog("Application"))
                 {
@@ -224,7 +233,7 @@ namespace DVRTools.Services
                     }
                 }
 
-               
+
             }
 
             Directory.Delete(path);
@@ -234,7 +243,7 @@ namespace DVRTools.Services
         {
             int pos = path.LastIndexOf(@"\") + 1;
             string tempPath = path.Substring(pos, path.Length - pos);
-            
+
             try
             {
                 File.Copy(path, $@"{outputPath}/{tempPath}");
@@ -249,6 +258,48 @@ namespace DVRTools.Services
                 }
             }
 
+        }
+
+        public void CreateFile(string path)
+        {
+            FileStream fileStream = null;
+            try
+            {
+                fileStream = File.Create(path);
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                using (EventLog eventLog = new EventLog("Application"))
+                {
+                    eventLog.Source = "Application";
+                    eventLog.WriteEntry($@"Tried creating Directory within {path}. The directory could not be found. /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
+                }
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                using (EventLog eventLog = new EventLog("Application"))
+                {
+                    eventLog.Source = "Application";
+                    eventLog.WriteEntry($@"Tried creating file {path}. The curent user does not have access rights to access this folder or file. /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
+                }
+            }
+            catch (Exception ex)
+            {
+                using (EventLog eventLog = new EventLog("Application"))
+                {
+                    eventLog.Source = "Application";
+                    eventLog.WriteEntry($@"Tried creating Directory within {path}. The following exception occured:. /n Stack trace {ex}", EventLogEntryType.FailureAudit, 101, 1);
+                }
+            }
+            finally
+            {
+                fileStream?.Dispose();
+            }
+        }
+
+        public bool FileExists(string path)
+        {
+            return File.Exists(path);
         }
     }
 }
