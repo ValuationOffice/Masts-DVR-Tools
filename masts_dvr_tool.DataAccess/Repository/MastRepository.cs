@@ -86,6 +86,67 @@ namespace masts_dvr_tool.DataAccess.Repository
                 }
 
             }
+
+            if (mastDataObject.VOAShared == "Yes")
+            {
+                int rowCount = 0;
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    string sql = @"SELECT count(*) FROM [NBS2017_Masts].[dbo].[CMV2017D_Sharers] where UID = @UID";
+
+
+
+                    using (SqlCommand command = new SqlCommand(sql, conn))
+                    {
+                        command.Parameters.AddWithValue("@UID", SqlDbType.VarChar);
+                        command.Parameters["@UID"].Value = uid;
+
+                        conn.Open();
+
+                        rowCount = (Int32)command.ExecuteScalar();
+
+                    }
+                }
+
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+
+                    string sql = @"SELECT * FROM [NBS2017_Masts].[dbo].[CMV2017D_Sharers] where UID = @UID";
+
+                    StringBuilder sharers = new StringBuilder();
+                    using (SqlCommand command = new SqlCommand(sql, conn))
+                    {
+                        command.Parameters.AddWithValue("@UID", SqlDbType.VarChar);
+                        command.Parameters["@UID"].Value = uid;
+
+                        conn.Open();
+
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        int count = 0;
+
+                        while (reader.Read())
+                        {
+                            sharers.Append(reader["ItemName"]);
+                            if (count < rowCount -1)
+                                sharers.Append(", ");
+
+                            count++;
+                        }
+
+
+                    }
+                    mastDataObject.VOASharedWith = sharers.ToString();
+                }
+
+            }
+
+            else
+            {
+                mastDataObject.VOASharedWith = "N/A";
+            }
+
             return mastDataObject;
         }
     }

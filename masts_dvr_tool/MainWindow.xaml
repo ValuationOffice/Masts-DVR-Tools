@@ -47,7 +47,7 @@
 
         <TextBox Text="{Binding Prefix}" Grid.Column="0" Grid.Row="3"/>
         <Button Command="{Binding GetPDFCommand}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Content="Get Fields from Template" IsEnabled="{Binding GetPDFEnabled}"/>
-        <DataGrid ItemsSource="{Binding PDFFields}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" AutoGenerateColumns="False">
+        <DataGrid ItemsSource="{Binding PDFFields}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Field" Binding="{Binding Name}" IsReadOnly="True"/>
                 <DataGridTextColumn Width="*" Header="Value" Binding="{Binding Value}"/>
