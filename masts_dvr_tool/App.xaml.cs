@@ -40,7 +40,10 @@ namespace masts_dvr_tool
             Container.Bind<IPDFManager>().To<PDFManager>().InSingletonScope();
             Container.Bind<IIOManager>().To<IOManager>().InSingletonScope();
             Container.Bind<IFileNameManager>().To<FileNameManager>().InSingletonScope();
-            Container.Bind<IMastRepository>().To<MastRepository>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["MastsConnectionString"].ConnectionString);
+            Container.Bind<IMastRepository>().To<MastRepository>()
+                .WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["MastsConnectionString"].ConnectionString)
+                .WithConstructorArgument("appRoleUsername", ConfigurationManager.AppSettings["AppRoleUser"])
+                .WithConstructorArgument("appRolePassword", ConfigurationManager.AppSettings["AppRolePassword"]);
             Container.Bind<IDataManager>().To<DataManager>().WithConstructorArgument("args", args.Args);
             Container.Bind<IDataConnector<IVOAType>>().To<DataConnector<IVOAType>>();
             Container.Bind<ICSVRepository>().To<CSVRepository>();
