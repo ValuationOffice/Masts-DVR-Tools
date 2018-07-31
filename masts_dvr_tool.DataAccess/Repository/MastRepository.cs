@@ -79,6 +79,7 @@ namespace masts_dvr_tool.DataAccess.Repository
                             mastDataObject.VOAMastOperator = reader["Operator"].ToString();
                             mastDataObject.VOAEffectiveFrom = reader["EffectiveDate"].ToString();
                             mastDataObject.VOAShared = Convert.ToDouble(reader["NumberOfSharers"]) > 0 ? "Yes" : "No";
+                            mastDataObject.VOARateableValue = $"£{reader["AdoptedRV"]}";
 
                         }
 
@@ -86,27 +87,7 @@ namespace masts_dvr_tool.DataAccess.Repository
                     }
 
                 }
-
-
-                sql = @"SELECT * FROM [NBS2017_Masts].[dbo].[CMV2017D_Valuation] where UID = @UID";
-
-                using (SqlCommand command = new SqlCommand(sql, connection))
-                {
-                    command.Parameters.AddWithValue("@UID", SqlDbType.VarChar);
-                    command.Parameters["@UID"].Value = uid;
-
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        mastDataObject.VOARateableValue = $"£{reader["CalculatedRV"]}";
-                    }
-
-
-                }
-
-
-
+                
                 if (mastDataObject.VOAShared == "Yes")
                 {
                     int rowCount = 0;
