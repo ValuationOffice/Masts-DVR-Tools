@@ -20,6 +20,6 @@ namespace masts_dvr_tool.Types
         public string VOASharedWith { get; set; }
         public string VOAOccupier { get; set; }
         public string VOARateableValue { get; set; }
-
+        public string VOAPrimaryDescription { get; set; }
     }
 }
