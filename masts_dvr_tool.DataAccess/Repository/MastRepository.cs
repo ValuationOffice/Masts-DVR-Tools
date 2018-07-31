@@ -80,6 +80,8 @@ namespace masts_dvr_tool.DataAccess.Repository
                             mastDataObject.VOAEffectiveFrom = reader["EffectiveDate"].ToString();
                             mastDataObject.VOAShared = Convert.ToDouble(reader["NumberOfSharers"]) > 0 ? "Yes" : "No";
                             mastDataObject.VOARateableValue = $"£{reader["AdoptedRV"]}";
+                            //Hard coding as all Masts are the same.
+                            mastDataObject.VOAPrimaryDescription = "COMMUNICATION STATION AND PREMISES";
 
                         }
 
