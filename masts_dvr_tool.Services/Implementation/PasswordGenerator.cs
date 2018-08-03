@@ -13,7 +13,7 @@ namespace masts_dvr_tool.Services.Implementation
         {
             Random random = new Random();
 
-            string values = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!£$%^&*()_+-={}[]:;'@#<>?/,.";
+            string values = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
             StringBuilder stringBuilder = new StringBuilder();
 
