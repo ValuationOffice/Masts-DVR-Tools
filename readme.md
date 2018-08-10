@@ -8,6 +8,7 @@ The application also supports standalone use for reading fields from PDF files a
 
 * Masts VB6 Application - only required if using database features.
 * .NET Framework 4.6.1 - this is due to environment settings. The application works fully on .NET 4.7.1
+* [Visual Studio Installer project extension](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2017InstallerProjects)
 
 ## Build Instructions
 
@@ -24,3 +25,7 @@ The database for the corresponding sources is required if developing additional 
 * Create a Struct/Class that inherits from IVOAType within the Types project. The names should replicate the fields on a PDF template.
 * Within masts_dvr_tools.DataAccess create a new repository and contract that maps data to the corresponding Type.
 * Within the DataManager Service, inject the repository and add it to the Switch Case statement. The case represents the first arguement sent to the .exe
+
+## License
+
+This application is being open-sourced under the AGPL license in order to correspond to [IText 7's community license](https://itextpdf.com/itext7/community).
